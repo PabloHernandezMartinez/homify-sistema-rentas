@@ -52,8 +52,8 @@ características y ubicación.
 ## Requisitos previos
 
 - Python 3.8 o superior.
-- Tkinter (viene con la mayoría de instalaciones de Python en Windows; en distribuciones 
-Linux es necesario instalar el paquete python3-tk desde el gestor de paquetes si no está presente).
+- Tkinter (viene con la mayoría de instalaciones de Python en Windows; en Linux
+  instalar el paquete python3-tk, por ejemplo con: sudo apt install -y python3-tk)
 
 
 ## Notas importantes de instalación y ejecución
