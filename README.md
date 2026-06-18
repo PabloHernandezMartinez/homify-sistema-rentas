@@ -89,6 +89,10 @@ source env/bin/activate
 4. Instalar todas las dependencias exactas
 pip install -r requirements.txt
 
+# Si estás en Linux y el comando anterior falla por paquetes específicos de Windows,
+# instala manualmente las dependencias principales:
+# pip install bcrypt email-validator python-dateutil numpy pandas scikit-learn xgboost matplotlib seaborn geopy joblib jupyter
+
 5. Generar la base de datos de prueba
 cd homify
 python poblar_db.py
