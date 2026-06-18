@@ -54,6 +54,8 @@ características y ubicación.
 - Python 3.8 o superior.
 - Tkinter (viene con la mayoría de instalaciones de Python en Windows; en Linux
   instalar el paquete python3-tk, por ejemplo con: sudo apt install -y python3-tk)
+- El módulo venv de Python (incluido en Windows; en Linux instalar con:
+  sudo apt install -y python3-venv)
 
 
 ## Notas importantes de instalación y ejecución
@@ -77,7 +79,8 @@ git clone https://github.com/PabloHernandezMartinez/homify-sistema-rentas.git
 cd homify-sistema-rentas
 
 2. Crear entorno virtual
-python -m venv env
+   En Windows: python -m venv env
+   En Linux/macOS: python3 -m venv env
 
 3. Activar el entorno virtual
 En Windows (usar cmd):
