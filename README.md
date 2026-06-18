@@ -52,10 +52,10 @@ características y ubicación.
 ## Requisitos previos
 
 - Python 3.8 o superior.
-- Tkinter (viene con la mayoría de instalaciones de Python en Windows; en Linux
-  instalar el paquete python3-tk, por ejemplo con: sudo apt install -y python3-tk)
-- El módulo venv de Python (incluido en Windows; en Linux instalar con:
-  sudo apt install -y python3-venv)
+- Tkinter (en Windows viene incluido con Python; en Linux es necesario instalar
+  el paquete python3-tk).
+- El módulo venv de Python (incluido en Windows; en Linux puede requerir
+  instalar python3-venv).
 
 
 ## Notas importantes de instalación y ejecución
@@ -71,48 +71,76 @@ al activar el entorno.
 
 ## Instalación y primer uso
 
-Abre una terminal en la raíz del proyecto y ejecuta los siguientes comandos en orden para 
-preparar el entorno, generar la base de datos e iniciar el sistema.
+Sigue el bloque de comandos que corresponda a tu sistema operativo.
 
-1. Clonar el repositorio (recomendado)
-git clone https://github.com/PabloHernandezMartinez/homify-sistema-rentas.git
-cd homify-sistema-rentas
+### Linux (Debian/Ubuntu)
 
-2. Crear entorno virtual
-   En Windows: python -m venv env
-   En Linux/macOS: python3 -m venv env
+    # 1. Clonar el repositorio
+    git clone https://github.com/PabloHernandezMartinez/homify-sistema-rentas.git
+    cd homify-sistema-rentas
 
-3. Activar el entorno virtual
-En Windows (usar cmd):
-env\Scripts\activate
+    # 2. Instalar tkinter y venv (si no están presentes)
+    sudo apt update
+    sudo apt install -y python3-tk python3-venv
 
-En Linux/macOS:
-source env/bin/activate
+    # 3. Crear y activar entorno virtual
+    python3 -m venv env
+    source env/bin/activate
 
-4. Instalar todas las dependencias exactas
-pip install -r requirements.txt
+    # 4. Instalar dependencias exactas
+    pip install -r requirements.txt
+    # El requirements.txt ya excluye automáticamente paquetes solo para Windows.
+    # Si aun así falla, instala manualmente las dependencias principales:
+    # pip install bcrypt email-validator python-dateutil numpy pandas scikit-learn xgboost matplotlib seaborn geopy joblib jupyter
 
-# Si estás en Linux y el comando anterior falla por paquetes específicos de Windows,
-# instala manualmente las dependencias principales:
-# pip install bcrypt email-validator python-dateutil numpy pandas scikit-learn xgboost matplotlib seaborn geopy joblib jupyter
+    # 5. Generar base de datos de prueba e iniciar
+    cd homify
+    python poblar_db.py
+    python main.py
 
-5. Generar la base de datos de prueba
-cd homify
-python poblar_db.py
+### Windows (usar cmd, no PowerShell)
 
-6. Ejecutar la aplicación
-python main.py
+    # 1. Clonar el repositorio
+    git clone https://github.com/PabloHernandezMartinez/homify-sistema-rentas.git
+    cd homify-sistema-rentas
 
-El comando pip install -r requirements.txt instala automáticamente todas las librerías necesarias
-con sus versiones correctas (bcrypt, pandas, xgboost, etc.). No se requiere instalar nada manualmente.
+    # 2. Crear y activar entorno virtual
+    python -m venv env
+    env\Scripts\activate
 
-La primera ejecución de poblar_db.py crea:
-- datos/sistema.db
-- datos/usuarios_credenciales.txt (contraseñas en texto plano, solo para pruebas)
+    # 3. Instalar dependencias
+    pip install -r requirements.txt
+
+    # 4. Generar base de datos de prueba e iniciar
+    cd homify
+    python poblar_db.py
+    python main.py
+
+### macOS
+
+    # 1. Clonar el repositorio
+    git clone https://github.com/PabloHernandezMartinez/homify-sistema-rentas.git
+    cd homify-sistema-rentas
+
+    # 2. Crear y activar entorno virtual
+    python3 -m venv env
+    source env/bin/activate
+
+    # 3. Instalar dependencias
+    pip install -r requirements.txt
+
+    # 4. Generar base de datos de prueba e iniciar
+    cd homify
+    python poblar_db.py
+    python main.py
+
+La primera ejecución de `poblar_db.py` crea:
+- `datos/sistema.db`
+- `datos/usuarios_credenciales.txt` (contraseñas en texto plano, solo para pruebas)
 
 Usa esas credenciales para iniciar sesión. El administrador por defecto es:
-  Email: admin@homify.mx
-  Password: Admin123!
+  Email: `admin@homify.mx`
+  Password: `Admin123!`
 
 
 ## Roles y funcionalidades principales
@@ -162,10 +190,10 @@ modelo_renta_xgboost_final.pkl y columnas_modelo.json.
 modelo entrenado para predecir el precio de renta de una propiedad.
 
 Para ejecutar la interfaz de predicción:
-Asegúrate de tener el entorno virtual (env) activado (ya que requiere librerías como XGBoost y Pandas) y ejecuta:
+Asegúrate de tener el entorno virtual (env) activado y ejecuta:
 
-cd ML
-python interfaz_prediccion.py
+    cd ML
+    python interfaz_prediccion.py
 
 Introduce las características de la propiedad y obtendrás el precio estimado.
 
@@ -174,7 +202,7 @@ Introduce las características de la propiedad y obtendrás el precio estimado.
 
 - .gitignore: evita subir la base de datos, credenciales y archivos temporales.
 - requirements.txt: lista de librerías con versiones exactas. 
-  Si necesitas regenerarlo, activa el entorno virtual y ejecuta pip freeze > requirements.txt.
+  Si necesitas regenerarlo, activa el entorno virtual y ejecuta `pip freeze > requirements.txt`.
 
 
 ## Créditos
