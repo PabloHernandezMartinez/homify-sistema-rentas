@@ -52,18 +52,25 @@ características y ubicación.
 ## Requisitos previos
 
 - Python 3.8 o superior.
-- Tkinter (viene con la mayoría de instalaciones de Python en Windows; en distribuciones Linux es necesario instalar el paquete python3-tk desde el gestor de paquetes si no está presente).
+- Tkinter (viene con la mayoría de instalaciones de Python en Windows; en distribuciones 
+Linux es necesario instalar el paquete python3-tk desde el gestor de paquetes si no está presente).
 
 
 ## Notas importantes de instalación y ejecución
 
 NOTA PARA USUARIOS DE WINDOWS (Descarga vía ZIP):
-Si descargas este repositorio como un archivo .zip en lugar de clonarlo con Git, asegúrate de extraerlo en una ruta corta (por ejemplo, C:\homify) y evita dejar la carpeta doblemente anidada. Las rutas demasiado largas en Windows rompen la creación del entorno virtual y la instalación de dependencias. Además, se recomienda fuertemente utilizar la consola tradicional (cmd) en lugar de PowerShell para evitar problemas con las políticas de ejecución de scripts al activar el entorno.
+Si descargas este repositorio como un archivo .zip en lugar de clonarlo con Git, asegúrate 
+de extraerlo en una ruta corta (por ejemplo, C:\homify) y evita dejar la carpeta doblemente 
+anidada. Las rutas demasiado largas en Windows rompen la creación del entorno virtual y la 
+instalación de dependencias. Además, se recomienda fuertemente utilizar la consola tradicional 
+(cmd) en lugar de PowerShell para evitar problemas con las políticas de ejecución de scripts 
+al activar el entorno.
 
 
 ## Instalación y primer uso
 
-Abre una terminal en la raíz del proyecto y ejecuta los siguientes comandos en orden para preparar el entorno, generar la base de datos e iniciar el sistema.
+Abre una terminal en la raíz del proyecto y ejecuta los siguientes comandos en orden para 
+preparar el entorno, generar la base de datos e iniciar el sistema.
 
 1. Clonar el repositorio (recomendado)
 git clone https://github.com/PabloHernandezMartinez/homify-sistema-rentas.git
@@ -89,7 +96,8 @@ python poblar_db.py
 6. Ejecutar la aplicación
 python main.py
 
-El comando pip install -r requirements.txt instala automáticamente todas las librerías necesarias con sus versiones correctas (bcrypt, pandas, xgboost, etc.). No se requiere instalar nada manualmente.
+El comando pip install -r requirements.txt instala automáticamente todas las librerías necesarias
+con sus versiones correctas (bcrypt, pandas, xgboost, etc.). No se requiere instalar nada manualmente.
 
 La primera ejecución de poblar_db.py crea:
 - datos/sistema.db
@@ -131,13 +139,20 @@ Usa esas credenciales para iniciar sesión. El administrador por defecto es:
 ### Flujo de trabajo
 
 1. El administrador exporta los inmuebles desde la aplicación (CSV).
-2. El notebook ETL.ipynb limpia caracteres extraños y unifica direcciones. (Debe usarse el dataset generado por la app Homify en el perfil de administrador para probarlo; no ejecutar sobre rent_features.csv porque ya está limpio).
-3. geolocalizacion.ipynb añade latitud y longitud usando las direcciones. (Requiere direcciones reales; con los datos ficticios de prueba no funciona, su fin es ilustrar el flujo).
-4. EDA.ipynb explora los datos y elimina outliers (Se puede utilizar 'rent_features.csv' para ver el flujo de EDA, pero el archivo ya esta limpio y es el que se
-usa en los demás notebooks).
+2. El notebook ETL.ipynb limpia caracteres extraños y unifica direcciones. 
+(Debe usarse el dataset generado por la app Homify en el perfil de administrador 
+para probarlo; no ejecutar sobre rent_features.csv porque ya está limpio).
+3. geolocalizacion.ipynb añade latitud y longitud usando las direcciones. 
+(Requiere direcciones reales; con los datos ficticios de prueba no funciona, 
+su fin es ilustrar el flujo).
+4. EDA.ipynb explora los datos y elimina outliers 
+(Se puede utilizar 'rent_features.csv' para ver el flujo de EDA, 
+pero el archivo ya esta limpio y es el que se usa en los demás notebooks).
 5. modelado_justificacion.ipynb compara modelos y elige XGBoost con hiperparámetros óptimos.
-6. modelado_final.ipynb entrena XGBoost, evalúa métricas (R², MAE, RMSE, MAPE) y guarda modelo_renta_xgboost_final.pkl y columnas_modelo.json.
-7. interfaz_prediccion.py es una aplicación independiente con Tkinter que usa el modelo entrenado para predecir el precio de renta de una propiedad.
+6. modelado_final.ipynb entrena XGBoost, evalúa métricas (R², MAE, RMSE, MAPE) y guarda 
+modelo_renta_xgboost_final.pkl y columnas_modelo.json.
+7. interfaz_prediccion.py es una aplicación independiente con Tkinter que usa el 
+modelo entrenado para predecir el precio de renta de una propiedad.
 
 Para ejecutar la interfaz de predicción:
 Asegúrate de tener el entorno virtual (env) activado (ya que requiere librerías como XGBoost y Pandas) y ejecuta:
@@ -151,7 +166,8 @@ Introduce las características de la propiedad y obtendrás el precio estimado.
 ## Archivos importantes
 
 - .gitignore: evita subir la base de datos, credenciales y archivos temporales.
-- requirements.txt: lista de librerías con versiones exactas. Si necesitas regenerarlo, activa el entorno virtual y ejecuta pip freeze > requirements.txt.
+- requirements.txt: lista de librerías con versiones exactas. 
+  Si necesitas regenerarlo, activa el entorno virtual y ejecuta pip freeze > requirements.txt.
 
 
 ## Créditos
