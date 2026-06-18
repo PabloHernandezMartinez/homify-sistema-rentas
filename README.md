@@ -158,7 +158,7 @@ python -m venv env
 # (activar el entorno segun tu sistema)
 pip install -r requirements.txt
 cd homify
-python poblar.py
+python poblar_db.py
 python main.py
 
 
