@@ -152,7 +152,7 @@ Usa esas credenciales para iniciar sesion. El administrador por defecto es:
 
 ## Clonacion y primer uso (resumen)
 
-git clone https://github.com/tu-usuario/homify-sistema-rentas.git
+git clone https://github.com/PabloHernandezMartinez/homify-sistema-rentas.git
 cd homify-sistema-rentas
 python -m venv env
 # (activar el entorno segun tu sistema)
