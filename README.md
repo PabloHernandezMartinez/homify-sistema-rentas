@@ -95,8 +95,8 @@ Sigue el bloque de comandos que corresponda a tu sistema operativo.
 
     # 5. Generar base de datos de prueba e iniciar
     cd homify
-    python poblar_db.py
-    python main.py
+    python3 poblar_db.py
+    python3 main.py
 
 ### Windows (usar cmd, no PowerShell)
 
