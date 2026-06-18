@@ -1,14 +1,14 @@
-# HOMIFY - Sistema de Gestion de Rentas y Prediccion de Precios
+# HOMIFY - Sistema de Gestión de Rentas y Predicción de Precios
 
-Aplicacion de escritorio para la gestion de rentas inmobiliarias, desarrollada con el
-patron MVC e interfaz grafica en Tkinter. Incluye un modelo de Machine Learning
+Aplicación de escritorio para la gestión de rentas inmobiliarias, desarrollada con el
+patrón MVC e interfaz gráfica en Tkinter. Incluye un modelo de Machine Learning
 (XGBoost) que predice el precio de renta mensual de una propiedad a partir de sus
-caracteristicas y ubicacion.
+características y ubicación.
 
 ## Estructura del repositorio
 
 .
-├── homify/                        # Aplicacion principal
+├── homify/                        # Aplicación principal
 │   ├── controlador/
 │   │   ├── controlador_admin.py
 │   │   ├── controlador_arrendador.py
@@ -20,7 +20,7 @@ caracteristicas y ubicacion.
 │   │   ├── departamento.py
 │   │   ├── enums.py
 │   │   ├── gestordb.py
-│   │   ├── inmuebles.py
+│   │   ├── inmueble.py
 │   │   ├── renta.py
 │   │   └── usuario.py
 │   ├── vista/
@@ -30,8 +30,8 @@ caracteristicas y ubicacion.
 │   │   ├── vista_detalle_propiedad.py
 │   │   ├── vista_login.py
 │   │   └── vista_perfil.py
-│   ├── main.py                    # Punto de entrada de la aplicacion
-│   └── poblar.py                  # Genera datos de prueba
+│   ├── main.py                    # Punto de entrada de la aplicación
+│   └── poblar_db.py               # Genera datos de prueba
 │
 ├── ML/                            # Modelo de Machine Learning
 │   ├── columnas_modelo.json
@@ -52,62 +52,69 @@ caracteristicas y ubicacion.
 ## Requisitos previos
 
 - Python 3.8 o superior.
-- Tkinter (viene con la mayoria de instalaciones de Python; en Linux instalar
-  python3-tk si no esta presente).
+- Tkinter (viene con la mayoría de instalaciones de Python en Windows; en distribuciones Linux es necesario instalar el paquete python3-tk desde el gestor de paquetes si no está presente).
 
 
-## Instalacion rapida (entorno virtual)
+## Notas importantes de instalación y ejecución
 
-Abre una terminal en la raiz del proyecto clonado y ejecuta:
-
-  # Crear entorno virtual
-  python -m venv env
-
-  # Activarlo (Windows)
-  env\Scripts\activate
-
-  # Activarlo (Linux/macOS)
-  source env/bin/activate
-
-  # Instalar todas las dependencias exactas
-  pip install -r requirements.txt
-
-  # Generar la base de datos de prueba
-  cd homify
-  python poblar.py
-
-  # Ejecutar la aplicacion
-  python main.py
+NOTA PARA USUARIOS DE WINDOWS (Descarga vía ZIP):
+Si descargas este repositorio como un archivo .zip en lugar de clonarlo con Git, asegúrate de extraerlo en una ruta corta (por ejemplo, C:\homify) y evita dejar la carpeta doblemente anidada. Las rutas demasiado largas en Windows rompen la creación del entorno virtual y la instalación de dependencias. Además, se recomienda fuertemente utilizar la consola tradicional (cmd) en lugar de PowerShell para evitar problemas con las políticas de ejecución de scripts al activar el entorno.
 
 
-El comando `pip install -r requirements.txt` instala automaticamente todas las
-librerias necesarias con sus versiones correctas (bcrypt, pandas, xgboost, etc.).
-No se requiere instalar nada manualmente.
+## Instalación y primer uso
 
-La primera ejecucion de `poblar.py` crea:
+Abre una terminal en la raíz del proyecto y ejecuta los siguientes comandos en orden para preparar el entorno, generar la base de datos e iniciar el sistema.
+
+1. Clonar el repositorio (recomendado)
+git clone https://github.com/PabloHernandezMartinez/homify-sistema-rentas.git
+cd homify-sistema-rentas
+
+2. Crear entorno virtual
+python -m venv env
+
+3. Activar el entorno virtual
+En Windows (usar cmd):
+env\Scripts\activate
+
+En Linux/macOS:
+source env/bin/activate
+
+4. Instalar todas las dependencias exactas
+pip install -r requirements.txt
+
+5. Generar la base de datos de prueba
+cd homify
+python poblar_db.py
+
+6. Ejecutar la aplicación
+python main.py
+
+El comando pip install -r requirements.txt instala automáticamente todas las librerías necesarias con sus versiones correctas (bcrypt, pandas, xgboost, etc.). No se requiere instalar nada manualmente.
+
+La primera ejecución de poblar_db.py crea:
 - datos/sistema.db
-- datos/usuarios_credenciales.txt (contrasenas en texto plano, solo para pruebas)
+- datos/usuarios_credenciales.txt (contraseñas en texto plano, solo para pruebas)
 
-Usa esas credenciales para iniciar sesion. El administrador por defecto es:
-  email: admin@homify.mx
-  password: Admin123!
+Usa esas credenciales para iniciar sesión. El administrador por defecto es:
+  Email: admin@homify.mx
+  Password: Admin123!
 
 
 ## Roles y funcionalidades principales
 
 ### Cliente
-- Explorar inmuebles disponibles con filtros (tipo, precio, recamaras).
+- Explorar inmuebles disponibles con filtros (tipo, precio, recámaras).
 - Ver detalle de una propiedad.
-- Rentar una propiedad (por dias o meses).
-- Historial de rentas propias, cancelar una renta activa.
-- Editar perfil y cambiar contrasena.
+- Rentar una propiedad (por días o meses).
+- Ver historial de rentas propias y cancelar una renta activa.
+- Editar perfil y cambiar contraseña.
 - Eliminar cuenta (si no tiene rentas activas).
 
 ### Arrendador
-- Ver todas sus propiedades, publicar una nueva (casa o departamento).
-- Editar o dar de baja/reactivar propiedades.
+- Ver todas sus propiedades y publicar una nueva (casa o departamento).
+- Editar, dar de baja o reactivar propiedades.
 - Ver las rentas de sus inmuebles, finalizar o cancelar rentas.
-- Dashboard con metricas de ingresos y grafico de barras.
+- Acceder al dashboard con métricas de ingresos y gráfico de barras.
 - Gestionar su perfil.
 
 ### Administrador
@@ -121,52 +128,39 @@ Usa esas credenciales para iniciar sesion. El administrador por defecto es:
 
 ## Modelo de Machine Learning (carpeta ML)
 
-### Flujo de trabajo (simulado)
+### Flujo de trabajo
 
-1. El administrador exporta los inmuebles desde la aplicacion (CSV).
-2. El notebook `ETL.ipynb` limpia caracteres extranos y unifica direcciones.
-   (No se ejecuta sobre `rent_features.csv` porque ya esta limpio.)
-3. `geolocalizacion.ipynb` anade latitud y longitud usando las direcciones.
-   Requiere direcciones reales; con los datos ficticios de prueba no funciona.
-4. `EDA.ipynb` toma `rent_features.csv`, explora los datos y elimina outliers.
-5. `modelado_justificacion.ipynb` compara modelos y elige XGBoost con
-   hiperparametros optimos.
-6. `modelado_final.ipynb` entrena XGBoost, evalua metricas (R², MAE, RMSE, MAPE)
-   y guarda `modelo_renta_xgboost_final.pkl` y `columnas_modelo.json`.
-7. `interfaz_prediccion.py` es una aplicacion independiente con Tkinter que usa
-   el modelo entrenado para predecir el precio de renta de una propiedad.
+1. El administrador exporta los inmuebles desde la aplicación (CSV).
+2. El notebook ETL.ipynb limpia caracteres extraños y unifica direcciones. (Debe usarse el dataset generado por la app Homify en el perfil de administrador para probarlo; no ejecutar sobre rent_features.csv porque ya está limpio).
+3. geolocalizacion.ipynb añade latitud y longitud usando las direcciones. (Requiere direcciones reales; con los datos ficticios de prueba no funciona, su fin es ilustrar el flujo).
+4. EDA.ipynb explora los datos y elimina outliers (Se puede utilizar 'rent_features.csv' para ver el flujo de EDA, pero el archivo ya esta limpio y es el que se
+usa en los demás notebooks).
+5. modelado_justificacion.ipynb compara modelos y elige XGBoost con hiperparámetros óptimos.
+6. modelado_final.ipynb entrena XGBoost, evalúa métricas (R², MAE, RMSE, MAPE) y guarda modelo_renta_xgboost_final.pkl y columnas_modelo.json.
+7. interfaz_prediccion.py es una aplicación independiente con Tkinter que usa el modelo entrenado para predecir el precio de renta de una propiedad.
 
-   Para usarla:
-     cd ML
-     python interfaz_prediccion.py
+Para ejecutar la interfaz de predicción:
+Asegúrate de tener el entorno virtual (env) activado (ya que requiere librerías como XGBoost y Pandas) y ejecuta:
 
-   Introduce las caracteristicas de la propiedad y obtendras el precio estimado.
+cd ML
+python interfaz_prediccion.py
+
+Introduce las características de la propiedad y obtendrás el precio estimado.
 
 
 ## Archivos importantes
 
-- `.gitignore`: evita subir la base de datos, credenciales y archivos temporales.
-- `requirements.txt`: lista de librerias con versiones exactas. Si necesitas
-  regenerarlo, activa el entorno virtual y ejecuta `pip freeze > requirements.txt`.
+- .gitignore: evita subir la base de datos, credenciales y archivos temporales.
+- requirements.txt: lista de librerías con versiones exactas. Si necesitas regenerarlo, activa el entorno virtual y ejecuta pip freeze > requirements.txt.
 
 
-## Clonacion y primer uso (resumen)
-
-git clone https://github.com/PabloHernandezMartinez/homify-sistema-rentas.git
-cd homify-sistema-rentas
-python -m venv env
-# (activar el entorno segun tu sistema)
-pip install -r requirements.txt
-cd homify
-python poblar_db.py
-python main.py
-
-
-## Creditos
+## Créditos
 
 Proyecto desarrollado como parte de la materia Desarrollo de Aplicaciones para Análisis de Datos.
+
 Estudiantes: 
-	Delgado Ramírez Leonardo.
-	Hernández Martínez Pablo.
+- Delgado Ramírez Leonardo
+- Hernández Martínez Pablo
+
 Profesor: Alejandro López
-Escuela: Escuela Superior de Cómputo. [ESCOM]
+Escuela: Escuela Superior de Cómputo [ESCOM]
